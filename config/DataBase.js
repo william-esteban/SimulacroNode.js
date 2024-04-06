@@ -7,7 +7,7 @@ const connectDatabse = async () => {
             Usuarios = mongoose.model('Usuarios', require('../Models/UsuariosModel').Schema);
         }
 
-        await mongoose.connect('mongodb+srv://william271629:3218741020@clusternotasdb.6dhty9c.mongodb.net/')
+        await mongoose.connect('mongodb+srv://william271629:3233933777@registerandlogin.1jgszwb.mongodb.net/')
         .then(() => console.log('MongoDB connected'))
         .catch((err) => console.log(err));
 
@@ -16,6 +16,7 @@ const connectDatabse = async () => {
         process.exit(1);    
     }
 };
+
 
 
 

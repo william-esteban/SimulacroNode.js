@@ -1,7 +1,7 @@
 const Usuarios = require('../Models/UsuariosModel');
 const bcrypt = require('bcrypt');
-const jwt = require('jwt');
-const jwt_secret = require('###assdadsadasd##');
+const jwt = require('jsonwebtoken');
+const jwt_secret = '###assdadsadasd##';
 
 // vamos a crear el register y el login de nuestra pagina. //
 
@@ -35,7 +35,7 @@ register: async (req, res) => {
         }
         const newCliente = new Usuarios(clienteData);
         const savedCliente = await newCliente.save();
-        res.status(500).json(savedCliente);
+        res.status(201).json(savedCliente);
         
     } catch (error) {
         console.error('Error al crear los usuarios', error);
@@ -49,7 +49,7 @@ register: async (req, res) => {
 login: async (req, res) => {
     try {
         const { correo ,password } = req.body;
-        const cliente = await Usuarios.findOne({correo: correo});
+        const cliente = await Usuarios.find({correo: correo});
 
         if(!cliente) {
             return res.status(401).json({ message: 'invalid clientName or password'});
@@ -60,7 +60,7 @@ login: async (req, res) => {
             return res.status(401).json({ message: 'invalid clientName or password'});
         }
 
-        const token = jwt.sign({IdCliente: cliente.id}, jwt_secret,{
+        const token = jwt.sign({IdCliente: cliente.id}, jwt_secret,{ 
             expiresIn: '1h'
         })
 
